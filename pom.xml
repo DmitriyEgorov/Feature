@@ -10,10 +10,14 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>core</module>
+        <module>re</module>
+        <module>d</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
+        <junit.version>4.8</junit.version>
+        <executor-service.version>1.0.1</executor-service.version>
     </properties>
 
 

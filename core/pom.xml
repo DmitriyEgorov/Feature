@@ -11,5 +11,18 @@
 
     <artifactId>core</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.vmlens</groupId>
+            <artifactId>executor-service</artifactId>
+            <version>${executor-service.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

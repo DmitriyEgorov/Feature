@@ -3,7 +3,11 @@ package processors;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import processors.impl.string.StringProcessor;
+import processors.impl.string.StringRequest;
+import processors.impl.string.StringResponse;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -25,7 +29,8 @@ public class StringProcessorTest {
     public void test() {
         Long start = System.currentTimeMillis();
         String value = "1";
-        String result = processor.encode(value);
+        StringRequest request = new StringRequest(value, LocalDateTime.now());
+        String result = processor.process(request).getBody();
         Long end = System.currentTimeMillis();
         assertTrue(DEFAULT_DELAY <= (end - start));
         assertEquals(value, result);
@@ -35,10 +40,11 @@ public class StringProcessorTest {
     public void testAsync() throws Exception {
         Long start = System.currentTimeMillis();
         String value = "1";
-        Future<String> result = processor.encodeAsync(value);
+        StringRequest request = new StringRequest(value, LocalDateTime.now());
+        Future<StringResponse> response = processor.processAsync(request);
         Long end = System.currentTimeMillis();
         assertTrue(DEFAULT_DELAY > (end - start));
-        String resultString = result.get(DEFAULT_DELAY * 2, TimeUnit.MILLISECONDS);
+        String resultString = response.get(DEFAULT_DELAY * 2, TimeUnit.MILLISECONDS).getBody();
         assertEquals(value, resultString);
     }
 
@@ -46,11 +52,12 @@ public class StringProcessorTest {
     public void testAsync_timeout() throws Exception{
         Long start = System.currentTimeMillis();
         String value = "1";
-        Future<String> result = processor.encodeAsync(value);
+        StringRequest request = new StringRequest(value, LocalDateTime.now());
+        Future<StringResponse> response = processor.processAsync(request);
         Long end = System.currentTimeMillis();
         assertTrue(DEFAULT_DELAY > (end - start));
         expectedException.expect(TimeoutException.class);
-        result.get(0, TimeUnit.MILLISECONDS);
+        response.get(0, TimeUnit.MILLISECONDS);
     }
 
 

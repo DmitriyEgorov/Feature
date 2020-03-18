@@ -5,6 +5,8 @@ import processors.Response;
 import java.time.LocalDateTime;
 
 /**
+ * response for string
+ *
  * @author Dmitriy
  * @since 09.03.2020
  */
@@ -13,10 +15,19 @@ public class StringResponse implements Response<String> {
     private String body;
     private LocalDateTime creationDateTime;
 
+    /**
+     * default constructor
+     */
     public StringResponse() {
 
     }
 
+    /**
+     * constructor
+     *
+     * @param body             - body of response
+     * @param creationDateTime - date time of creation of response
+     */
     public StringResponse(String body, LocalDateTime creationDateTime) {
         this.body = body;
         this.creationDateTime = creationDateTime;

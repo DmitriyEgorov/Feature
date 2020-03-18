@@ -9,6 +9,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
+ * processor for string
+ *
  * @author Dmitriy
  * @since 09.02.2020
  */
@@ -17,13 +19,8 @@ public class StringProcessor implements Processor<StringRequest, StringResponse>
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    /**
-     * process String with delay
-     *
-     * @param value - string
-     * @return encoding value
-     */
-    public StringResponse process (StringRequest value) {
+    @Override
+    public StringResponse process(StringRequest value) {
         try {
             Thread.sleep(DEFAULT_DELAY);
         } catch (InterruptedException e) {
@@ -35,7 +32,8 @@ public class StringProcessor implements Processor<StringRequest, StringResponse>
         );
     }
 
-    public Future<StringResponse> processAsync (StringRequest value) {
+    @Override
+    public Future<StringResponse> processAsync(StringRequest value) {
         return executor.submit(() -> process(value));
     }
 }
